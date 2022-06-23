@@ -14,18 +14,61 @@ class Asteroid(object):
         self.ra = np.array([])
         self.dec = np.array([])
     
+    def set_sso_source(self, sso_source_results):
+        self.source_id = sso_source_results['source_id']
+        self.num_of_obs = sso_source_results['num_of_obs']
+        self.number_mp = sso_source_results['number_mp']
+        self.denomination = sso_source_results['denomination']
+
     def get_sso_source_from_source_id(self):
-        pass
+        query = """SELECT
+                source_id, num_of_obs, number_mp, denomination
+                FROM gaiadr2.sso_source
+                WHERE source_id={source_id}
+                """.format(source_id=self.source_id)
 
-# Gets table from Gaia.sso_source using either source_id, number_mp, or denomination as type and respective input as text
-def get_sso_source(text, type):
-    query = """SELECT
-    source_id, num_of_obs, number_mp, denomination
-    FROM gaiadr2.sso_source
-    WHERE {mpc_type}={mpc_name}
-    """.format(mpc_type = type, mpc_name='\'' + text + '\'')
-    job = Gaia.launch_job(query)
-    r = job.get_results()
-    print(r)
+        job = Gaia.launch_job(query)
+        results = job.get_results()
+        print(results)
+        self.set_sso_source(results)
+        
+    
+    def get_sso_source_from_number_mp(self):
+        query = """SELECT
+                source_id, num_of_obs, number_mp, denomination
+                FROM gaiadr2.sso_source
+                WHERE number_mp={number_mp}
+                """.format(number_mp=self.number_mp)
 
-get_sso_source('8','number_mp')
+        job = Gaia.launch_job(query)
+        results = job.get_results()
+        print(results)
+        self.set_sso_source(results)
+
+    def get_sso_source_from_denomination(self):
+        query = """SELECT
+                source_id, num_of_obs, number_mp, denomination
+                FROM gaiadr2.sso_source
+                WHERE denomination={denomination}
+                """.format(denomination=self.denomination)
+
+        job = Gaia.launch_job(query)
+        results = job.get_results()
+        print(results)
+        self.set_sso_source(results)
+
+    def get_sso_observation_from_number_mp(self):
+        query = """SELECT
+                source_id, num_of_obs, number_mp, denomination
+                FROM gaiadr2.sso_source
+                WHERE denomination={denomination}
+                """.format(denomination=self.denomination)
+
+        job = Gaia.launch_job(query)
+        results = job.get_results()
+        print(results)
+        self.set_sso_source(results)
+
+test = Asteroid(number_mp=8)
+test.get_sso_source_from_number_mp()
+print(test.num_of_obs)
