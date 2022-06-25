@@ -2,7 +2,6 @@ README.md
 setup.py
 asteroidal/__init__.py
 asteroidal/asteroid.py
-asteroidal/test.py
 asteroidal.egg-info/PKG-INFO
 asteroidal.egg-info/SOURCES.txt
 asteroidal.egg-info/dependency_links.txt

@@ -100,7 +100,13 @@ class Asteroid(object):
             Table: Table of results from query job including source_id, num_of_obs, number_mp, denomination
         """
         if len(sso_source_results) < 1:
-            print('Asteroid does not exist in Gaia.')
+            if self.number_mp > 0:
+                val = self.number_mp
+            elif self.denomination != '':
+                val = self.denomination
+            elif self.source_id != 0:
+                val = self.source_id
+            print('Asteroid {} does not exist in Gaia.'.format(val))
             self.source_id = 0
             self.number_mp = 0
             self.num_of_obs = 0
@@ -121,13 +127,13 @@ class Asteroid(object):
         Adds observations attribute
 
         Returns:
-            Table: Table of results from query job including source_id, observation_id, number_mp, epoch, ra, dec, x_gaia, y_gaia, z_gaia
+            Table: Table of results from query job including source_id, observation_id, number_mp, epoch, ra, dec
         """
         if self.source_id == 0:
             self.observations = Table()
             return self.observations
         query = """SELECT
-                source_id, observation_id, number_mp, epoch, ra, dec, x_gaia, y_gaia, z_gaia
+                source_id, observation_id, number_mp, epoch, ra, dec
                 FROM gaiadr2.sso_observation
                 WHERE source_id={source_id}
                 """.format(source_id=self.source_id)
@@ -170,13 +176,22 @@ class Asteroid(object):
         """
         if len(self.observations) == 0:
             return
+        
+        numTransits = len(self.transits)
         fig = plt.figure(figsize=(7, 7))
-        ra = self.observations['ra']
-        dec = self.observations['dec']
-        plt.scatter(ra, dec, color='purple')
+        colors = []
+        for index in range(0, numTransits):
+            ra, dec = self.get_transit_obs(index)
+            ccds = self.transit_ccds[index]
+            for i in range(0, len(ccds)):
+                plt.scatter(ra, dec, color=(1-index/numTransits, index/numTransits, 1))
+            color_patch = mpatches.Patch(color=(1-index/numTransits, index/numTransits, 1), label='Transit ' +str(index+1))
+            colors.append(color_patch)
+       
         plt.xlabel('RA (deg)')
         plt.ylabel('DEC (deg)')
         plt.title('All Observations')
+        plt.legend(handles=colors)
     
     def get_transit_obs(self, index):
         """
