@@ -8,6 +8,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import asteroid as ast
+#%%
+flora = ast.Asteroid(number_mp=8)
+print(flora.source_id)
 # %%
 # flora = ast.Asteroid(number_mp=8)
 # flora.query_mpc()

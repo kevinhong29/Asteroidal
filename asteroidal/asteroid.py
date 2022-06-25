@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from astroquery.gaia import Gaia
 from astroquery.mpc import MPC
+from astropy.table import Table
 
 class Asteroid(object):
     """An asteroid in Gaia.sso_source database with observations.
@@ -35,7 +36,7 @@ class Asteroid(object):
 
     """
     def __init__(self, number_mp=0, denomination='', source_id=0):
-        if number_mp > -1:
+        if number_mp > 0:
             self.number_mp = number_mp
             self.query_source('number_mp')
         elif denomination != '':
@@ -44,6 +45,11 @@ class Asteroid(object):
         elif source_id != 0:
             self.source_id = source_id
             self.query_source('source_id')
+        else: 
+            self.number_mp = 0
+            self.denomination = ''
+            self.source_id = 0
+            self.num_of_obs = 0
         self.query_observations()
         self.set_transits()
         self.query_mpc()
@@ -73,7 +79,7 @@ class Asteroid(object):
                 source_id, num_of_obs, number_mp, denomination
                 FROM gaiadr2.sso_source
                 WHERE {search}={val}
-                """.format(search=search_col, val=value)
+                """.format(search=search_col, val='\'{}\''.format(value))
         job = Gaia.launch_job(query)
         results = job.get_results()
         return self.set_sso_source(results)
@@ -110,11 +116,11 @@ class Asteroid(object):
         Adds observations attribute
 
         Returns:
-            Table: Table of results from query job including source_id, observation_id,
-                number_mp, epoch, ra, dec, x_gaia, y_gaia, z_gaia
+            Table: Table of results from query job including source_id, observation_id, number_mp, epoch, ra, dec, x_gaia, y_gaia, z_gaia
         """
         if self.source_id == 0:
-            return
+            self.observations = Table()
+            return self.observations
         query = """SELECT
                 source_id, observation_id, number_mp, epoch, ra, dec, x_gaia, y_gaia, z_gaia
                 FROM gaiadr2.sso_observation
@@ -133,7 +139,9 @@ class Asteroid(object):
             ndarray: Array of int, individual transits from observations
         """
         if self.source_id == 0:
-            return
+            self.transits = np.array([])
+            self.transit_ccds = np.array([])
+            return self.transits
         observation_id = self.observations['observation_id'].data
 
         transit_id = observation_id / 10
@@ -153,6 +161,8 @@ class Asteroid(object):
     def plot_observations(self):
         """Plots ra and dec of all observations
         """
+        if len(self.observations) == 0:
+            return
         ra = self.observations['ra']
         dec = self.observations['dec']
         plt.scatter(ra, dec)
@@ -238,7 +248,9 @@ class Asteroid(object):
             dict: All orbit data in form of dict
         """
         if self.number_mp == 0:
-            return
+            self.mpc_data = {}
+            self.orbit_data = np.array([0,0])
+            return self.orbit_data
         result = MPC.query_object('asteroid', number=self.number_mp)[0]
         self.mpc_data = result
         self.orbit_data = np.array([
@@ -250,6 +262,8 @@ class Asteroid(object):
     def plot_orbits(self):
         """Plots sun and orbits of planets and asteroid
         """
+        if self.number_mp == 0:
+            return
         fig,ax = plt.subplots(subplot_kw={'projection':'polar'}, figsize=(10, 10))
         planet_orbit(ax)
         orbit(ax, self.orbit_data, 'purple', self.denomination + '({NUM})'.format(NUM=self.number_mp), lw=3)
@@ -257,7 +271,7 @@ class Asteroid(object):
 
 
 
-def orbit(ax, orbit_params, color, olabel, lw=1, alp=1):
+def orbit(ax, orbit_params, color='blue', olabel='', lw=1, alp=1):
     """Plots simple orbit of object given semimajor axis and eccentricity
     in polar coordinates.
 
@@ -292,17 +306,18 @@ def planet_orbit(ax):
     ax.plot(0, 0, color='yellow', markerfacecolor='yellow', label='Sun', marker='o', markersize=5, markeredgecolor='black')
     orbit(ax, mercury, 'gray', 'Mercury')
     orbit(ax, venus, 'orange', 'Venus')
-    orbit(ax, earth, 'green', 'Earth')
+    orbit(ax, earth, 'blue', 'Earth')
     orbit(ax, mars, 'red', 'Mars')
-    orbit(ax, jupyter, 'pink', 'Jupyter')
+    orbit(ax, jupyter, 'green', 'Jupyter')
 
-def plot_multiple_orbits(asteroids):
+def plot_multiple_orbits(asteroids, ax=None):
     """Plots orbit of multiple asteroids in array along with sun and planets
 
     Args:
         asteroids (ndarray of Asteroid object): Array of asteroid objects
     """
-    fig,ax = plt.subplots(subplot_kw={'projection':'polar'}, figsize=(10, 10))
+    if ax is None:
+        fig,ax = plt.subplots(subplot_kw={'projection':'polar'}, figsize=(10, 10))
     planet_orbit(ax)
     plt.title('Orbits for Multiple Asteroids')
     for asteroid in asteroids:
