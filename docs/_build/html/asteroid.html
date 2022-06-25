@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asteroid Module &mdash; Asteroidal 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to Asteroidal’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Asteroidal
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Asteroid Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Asteroidal</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Asteroid Module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/asteroid.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="asteroid-module">
+<span id="asteroid"></span><h1>Asteroid Module<a class="headerlink" href="#asteroid-module" title="Permalink to this heading"></a></h1>
+<p>Module to query data on asteroids from Gaia and plot transits and orbits</p>
+<span class="target" id="module-asteroidal"></span><span class="target" id="module-asteroidal.asteroid"></span><dl class="py class">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">asteroidal.asteroid.</span></span><span class="sig-name descname"><span class="pre">Asteroid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_mp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denomination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid" title="Permalink to this definition"></a></dt>
+<dd><p>An asteroid in Gaia.sso_source database with observations.</p>
+<p>Asteroid object should be initialized with one of three inputs: number_mp,
+denomination, or source_id (if more than three are inputed, will prioritize
+initializing in given order). Initialization will query Gaia for the remaining
+attributes unless the asteroid does not exist in Gaia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_id</strong> (<em>int</em>) – Unique source identifier from gaia_source.</p></li>
+<li><p><strong>number_mp</strong> (<em>int</em>) – Minor Planet number attributed by MPC.</p></li>
+<li><p><strong>denomination</strong> (<em>string</em>) – Name of asteroid in MPC database.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.source_id">
+<span class="sig-name descname"><span class="pre">source_id</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.source_id" title="Permalink to this definition"></a></dt>
+<dd><p>Unique source identifier from gaia_source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.number_mp">
+<span class="sig-name descname"><span class="pre">number_mp</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.number_mp" title="Permalink to this definition"></a></dt>
+<dd><p>Minor Planet number attributed by MPC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.denomination">
+<span class="sig-name descname"><span class="pre">denomination</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.denomination" title="Permalink to this definition"></a></dt>
+<dd><p>Name of asteroid in MPC database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.num_of_obs">
+<span class="sig-name descname"><span class="pre">num_of_obs</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.num_of_obs" title="Permalink to this definition"></a></dt>
+<dd><p>Number of observations for the asteroid
+that appear in sso_observation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.observations">
+<span class="sig-name descname"><span class="pre">observations</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.observations" title="Permalink to this definition"></a></dt>
+<dd><p>Table of observations from sso_observation.
+Includes source_id, observation_id, number_mp, epoch,
+ra, dec, x_gaia, y_gaia, z_gaia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.transits">
+<span class="sig-name descname"><span class="pre">transits</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.transits" title="Permalink to this definition"></a></dt>
+<dd><p>Array of individual transits from observation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ndarray of int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.transit_ccds">
+<span class="sig-name descname"><span class="pre">transit_ccds</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.transit_ccds" title="Permalink to this definition"></a></dt>
+<dd><p>Array of lists of ccd detectors activated
+for an observation for each transit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ndarray of list of int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.mpc_data">
+<span class="sig-name descname"><span class="pre">mpc_data</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.mpc_data" title="Permalink to this definition"></a></dt>
+<dd><p>All data from querying MPC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.orbit_data">
+<span class="sig-name descname"><span class="pre">orbit_data</span></span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.orbit_data" title="Permalink to this definition"></a></dt>
+<dd><p>Array of orbit data (eccentricity, semimajor axis)
+queried from MPC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>ndarray of float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.get_transit_obs">
+<span class="sig-name descname"><span class="pre">get_transit_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.get_transit_obs" title="Permalink to this definition"></a></dt>
+<dd><p>Returns ra and dec of observations of a specific transit,
+specified by index in transits array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – index of transits array</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns list of ra and list of dec</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.plot_all_transits">
+<span class="sig-name descname"><span class="pre">plot_all_transits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.plot_all_transits" title="Permalink to this definition"></a></dt>
+<dd><p>Plots all observations for each transit in single figure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.plot_observations">
+<span class="sig-name descname"><span class="pre">plot_observations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.plot_observations" title="Permalink to this definition"></a></dt>
+<dd><p>Plots ra and dec of all observations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.plot_orbits">
+<span class="sig-name descname"><span class="pre">plot_orbits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.plot_orbits" title="Permalink to this definition"></a></dt>
+<dd><p>Plots sun and orbits of planets and asteroid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.plot_transit">
+<span class="sig-name descname"><span class="pre">plot_transit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.plot_transit" title="Permalink to this definition"></a></dt>
+<dd><p>Plots observations in specific transit, specified by index in transits array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – index of transits array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.query_mpc">
+<span class="sig-name descname"><span class="pre">query_mpc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.query_mpc" title="Permalink to this definition"></a></dt>
+<dd><p>Queries MPC for all orbit data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>All orbit data in form of dict</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.query_observations">
+<span class="sig-name descname"><span class="pre">query_observations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.query_observations" title="Permalink to this definition"></a></dt>
+<dd><p>Queries gaiadr2.sso_observation for all observations for specific asteroid object.
+Adds observations attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Table of results from query job including source_id, observation_id,</dt><dd><p>number_mp, epoch, ra, dec, x_gaia, y_gaia, z_gaia</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.query_source">
+<span class="sig-name descname"><span class="pre">query_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.query_source" title="Permalink to this definition"></a></dt>
+<dd><p>Queries gaiadr2.sso_source for asteroid given number_mp,
+denomination, or source_id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>search_col</strong> (<em>string</em>) – Specifies which column name to query by.
+Either ‘number_mp’, ‘denomination’, or ‘source_id’</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Table of results from query job including source_id, num_of_obs, number_mp, denomination</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.set_sso_source">
+<span class="sig-name descname"><span class="pre">set_sso_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sso_source_results</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.set_sso_source" title="Permalink to this definition"></a></dt>
+<dd><p>Sets attributes of Asteroid object from results of querying gaiadr2.sso_source</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sso_source_results</strong> (<em>Table</em>) – Table of results from query job for gaia.sso_source.
+Includes source_id, num_of_obs, number_mp, denomination. If table is empty,
+does not intialize attributes.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Table of results from query job including source_id, num_of_obs, number_mp, denomination</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asteroidal.asteroid.Asteroid.set_transits">
+<span class="sig-name descname"><span class="pre">set_transits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.Asteroid.set_transits" title="Permalink to this definition"></a></dt>
+<dd><p>Adds transits and transit_ccds attributes from total observations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Array of int, individual transits from observations</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asteroidal.asteroid.orbit">
+<span class="sig-prename descclassname"><span class="pre">asteroidal.asteroid.</span></span><span class="sig-name descname"><span class="pre">orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">olabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.orbit" title="Permalink to this definition"></a></dt>
+<dd><p>Plots simple orbit of object given semimajor axis and eccentricity
+in polar coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>axes</em>) – Axes to plot onto</p></li>
+<li><p><strong>orbit_params</strong> (<em>ndarray</em>) – Orbit parameters (semimajor axis, eccentricity)</p></li>
+<li><p><strong>color</strong> (<em>string</em>) – Color of orbit plot</p></li>
+<li><p><strong>olabel</strong> (<em>string</em>) – Label of orbit as seen in legend</p></li>
+<li><p><strong>lw</strong> (<em>float</em>) – Linewidth of orbit plot</p></li>
+<li><p><strong>a</strong> (<em>float within 0-1</em>) – Alpha value of orbit plot</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asteroidal.asteroid.planet_orbit">
+<span class="sig-prename descclassname"><span class="pre">asteroidal.asteroid.</span></span><span class="sig-name descname"><span class="pre">planet_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.planet_orbit" title="Permalink to this definition"></a></dt>
+<dd><p>Plots sun and orbits of planets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ax</strong> (<em>axes</em>) – Axes to plot onto</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asteroidal.asteroid.plot_multiple_orbits">
+<span class="sig-prename descclassname"><span class="pre">asteroidal.asteroid.</span></span><span class="sig-name descname"><span class="pre">plot_multiple_orbits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asteroids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.plot_multiple_orbits" title="Permalink to this definition"></a></dt>
+<dd><p>Plots orbit of multiple asteroids in array along with sun and planets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>asteroids</strong> (<em>ndarray of Asteroid object</em>) – Array of asteroid objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Asteroidal’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kevin Hong, Santoshi Subramanian.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
