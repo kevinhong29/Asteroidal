@@ -1,12 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import matplotlib
 from astroquery.gaia import Gaia
 from astroquery.mpc import MPC
 from astropy.table import Table
 
 class Asteroid(object):
-    """An asteroid in Gaia.sso_source database with observations.
+    """
+    An asteroid in Gaia.sso_source database with observations.
 
     Asteroid object should be initialized with one of three inputs: number_mp, 
     denomination, or source_id (if more than three are inputed, will prioritize
@@ -55,7 +57,8 @@ class Asteroid(object):
         self.query_mpc()
 
     def query_source(self, search_col):
-        """Queries gaiadr2.sso_source for asteroid given number_mp, 
+        """
+        Queries gaiadr2.sso_source for asteroid given number_mp, 
         denomination, or source_id.
 
         Args:
@@ -85,7 +88,8 @@ class Asteroid(object):
         return self.set_sso_source(results)
 
     def set_sso_source(self, sso_source_results):
-        """Sets attributes of Asteroid object from results of querying gaiadr2.sso_source
+        """
+        Sets attributes of Asteroid object from results of querying gaiadr2.sso_source
 
         Args:
             sso_source_results (Table): Table of results from query job for gaia.sso_source.
@@ -112,7 +116,8 @@ class Asteroid(object):
         return self.source
 
     def query_observations(self):
-        """Queries gaiadr2.sso_observation for all observations for specific asteroid object.
+        """
+        Queries gaiadr2.sso_observation for all observations for specific asteroid object.
         Adds observations attribute
 
         Returns:
@@ -133,7 +138,8 @@ class Asteroid(object):
         return self.observations
 
     def set_transits(self):
-        """Adds transits and transit_ccds attributes from total observations
+        """
+        Adds transits and transit_ccds attributes from total observations
 
         Returns:
             ndarray: Array of int, individual transits from observations
@@ -159,16 +165,22 @@ class Asteroid(object):
         return self.transits
     
     def plot_observations(self):
-        """Plots ra and dec of all observations
+        """
+        Plots ra and dec of all observations
         """
         if len(self.observations) == 0:
             return
+        fig = plt.figure(figsize=(7, 7))
         ra = self.observations['ra']
         dec = self.observations['dec']
-        plt.scatter(ra, dec)
+        plt.scatter(ra, dec, color='purple')
+        plt.xlabel('RA (deg)')
+        plt.ylabel('DEC (deg)')
+        plt.title('All Observations')
     
     def get_transit_obs(self, index):
-        """Returns ra and dec of observations of a specific transit, 
+        """
+        Returns ra and dec of observations of a specific transit, 
         specified by index in transits array
 
         Args:
@@ -190,7 +202,8 @@ class Asteroid(object):
         return [ra,dec]
 
     def plot_transit(self, index):
-        """Plots observations in specific transit, specified by index in transits array.
+        """
+        Plots observations in specific transit, specified by index in transits array.
 
         Args:
             index (int): index of transits array
@@ -203,14 +216,19 @@ class Asteroid(object):
         d_dec = 3600000*(dec - np.min(dec))
         ccds = self.transit_ccds[index]
         fig = plt.figure()
+        colors = []
         for i in range(0,len(ccds)):
             plt.scatter(d_ra[i], d_dec[i], color=(1-ccds[i]/10, ccds[i]/10, 1))
+            color_patch = mpatches.Patch(color=(1-ccds[i]/10, ccds[i]/10, 1), label='CCD'+str(i+1))
+            colors.append(color_patch)
             plt.xlabel(r'$\Delta$' + 'RA (mas)')
             plt.ylabel(r'$\Delta$' + 'DEC (mas)')
             plt.title('{NAME} ({NUM})\nTransit {TRANSIT:.0f} at \n(RA, DEC) = ({RA}, {DEC}) in deg'.format(NAME=self.denomination,NUM=self.number_mp,TRANSIT=self.transits[index],RA=np.min(ra), DEC=np.min(dec)))
+        plt.legend(handles=colors)
 
     def plot_all_transits(self):
-        """Plots all observations for each transit in single figure.
+        """
+        Plots all observations for each transit in single figure.
         """
         numTransits = len(self.transits)
         nFig = int(np.ceil(np.sqrt(numTransits)))
@@ -218,7 +236,6 @@ class Asteroid(object):
             print('No transits observed.')
             return
         fig, ax = plt.subplots(nrows=nFig, ncols=nFig, figsize=(2+2*nFig, 2+2*nFig))
-        
         for index in range(0,nFig**2):
             row = int(index / nFig)
             col = int(index % nFig)
@@ -234,6 +251,12 @@ class Asteroid(object):
                     plt.yticks(fontsize=20/nFig)
             else:
                 fig.delaxes(ax[row][col])
+        colors = []
+        for i in range(0, 9):
+            color_patch = mpatches.Patch(color=(1-i/10, i/10, 1), label='CCD'+str(i+1))
+            colors.append(color_patch)
+
+        plt.legend(handles=colors, loc='upper left', bbox_to_anchor=(1.02, 1),borderaxespad=0)
 
         numRows = int((numTransits-1)/nFig) + 1
         emptyRows = nFig - numRows
@@ -242,7 +265,8 @@ class Asteroid(object):
         fig.text(0.5, 0.92, '{NAME} ({NUM})\nAll Transits Observed By Gaia'.format(NAME=self.denomination, NUM=self.number_mp), ha='center')
 
     def query_mpc(self):
-        """Queries MPC for all orbit data
+        """
+        Queries MPC for all orbit data
 
         Returns:
             dict: All orbit data in form of dict
@@ -272,7 +296,8 @@ class Asteroid(object):
 
 
 def orbit(ax, orbit_params, color='blue', olabel='', lw=1, alp=1):
-    """Plots simple orbit of object given semimajor axis and eccentricity
+    """
+    Plots simple orbit of object given semimajor axis and eccentricity
     in polar coordinates.
 
     Args:
@@ -291,7 +316,8 @@ def orbit(ax, orbit_params, color='blue', olabel='', lw=1, alp=1):
     ax.legend()
 
 def planet_orbit(ax):
-    """Plots sun and orbits of planets
+    """
+    Plots sun and orbits of planets
 
     Args:
         ax (axes): Axes to plot onto
@@ -311,7 +337,8 @@ def planet_orbit(ax):
     orbit(ax, jupyter, 'green', 'Jupyter')
 
 def plot_multiple_orbits(asteroids, ax=None):
-    """Plots orbit of multiple asteroids in array along with sun and planets
+    """
+    Plots orbit of multiple asteroids in array along with sun and planets
 
     Args:
         asteroids (ndarray of Asteroid object): Array of asteroid objects
