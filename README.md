@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/506345872.svg)](https://zenodo.org/badge/latestdoi/506345872)
 # Asteroidal
 2022 Code/Astro Project by Kevin and Santoshi
 
