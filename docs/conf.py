@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'CodeAstroProject'
+project = 'Asteroidal'
 copyright = '2022, Kevin Hong, Santoshi Subramanian'
 author = 'Kevin Hong, Santoshi Subramanian'
 root_doc = 'index'

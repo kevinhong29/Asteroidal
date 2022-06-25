@@ -5,8 +5,12 @@ from astroquery.gaia import Gaia
 from astroquery.mpc import MPC
 
 class Asteroid(object):
-    """
-    An asteroid in Gaia.sso_source database with observations.
+    """An asteroid in Gaia.sso_source database with observations.
+
+    Asteroid object should be initialized with one of three inputs: number_mp, 
+    denomination, or source_id (if more than three are inputed, will prioritize
+    initializing in given order). Initialization will query Gaia for the remaining
+    attributes unless the asteroid does not exist in Gaia.
 
     Args:
         source_id (int): Unique source identifier from gaia_source.
@@ -28,6 +32,7 @@ class Asteroid(object):
         mpc_data (dict): All data from querying MPC.
         orbit_data (ndarray of float): Array of orbit data (eccentricity, semimajor axis)
             queried from MPC.
+
     """
     def __init__(self, number_mp=0, denomination='', source_id=0):
         if number_mp > -1:
@@ -44,8 +49,7 @@ class Asteroid(object):
         self.query_mpc()
 
     def query_source(self, search_col):
-        """
-        Queries gaiadr2.sso_source for asteroid given number_mp, 
+        """Queries gaiadr2.sso_source for asteroid given number_mp, 
         denomination, or source_id.
 
         Args:
@@ -75,8 +79,7 @@ class Asteroid(object):
         return self.set_sso_source(results)
 
     def set_sso_source(self, sso_source_results):
-        """
-        Sets attributes of Asteroid object from results of querying gaiadr2.sso_source
+        """Sets attributes of Asteroid object from results of querying gaiadr2.sso_source
 
         Args:
             sso_source_results (Table): Table of results from query job for gaia.sso_source.
@@ -103,8 +106,7 @@ class Asteroid(object):
         return self.source
 
     def query_observations(self):
-        """
-        Queries gaiadr2.sso_observation for all observations for specific asteroid object.
+        """Queries gaiadr2.sso_observation for all observations for specific asteroid object.
         Adds observations attribute
 
         Returns:
@@ -125,8 +127,7 @@ class Asteroid(object):
         return self.observations
 
     def set_transits(self):
-        """
-        Adds transits and transit_ccds attributes from total observations
+        """Adds transits and transit_ccds attributes from total observations
 
         Returns:
             ndarray: Array of int, individual transits from observations
@@ -150,16 +151,14 @@ class Asteroid(object):
         return self.transits
     
     def plot_observations(self):
-        """
-        Plots ra and dec of all observations
+        """Plots ra and dec of all observations
         """
         ra = self.observations['ra']
         dec = self.observations['dec']
         plt.scatter(ra, dec)
     
     def get_transit_obs(self, index):
-        """
-        Returns ra and dec of observations of a specific transit, 
+        """Returns ra and dec of observations of a specific transit, 
         specified by index in transits array
 
         Args:
@@ -181,8 +180,7 @@ class Asteroid(object):
         return [ra,dec]
 
     def plot_transit(self, index):
-        """
-        Plots observations in specific transit, specified by index in transits array.
+        """Plots observations in specific transit, specified by index in transits array.
 
         Args:
             index (int): index of transits array
@@ -202,8 +200,7 @@ class Asteroid(object):
             plt.title('{NAME} ({NUM})\nTransit {TRANSIT:.0f} at \n(RA, DEC) = ({RA}, {DEC}) in deg'.format(NAME=self.denomination,NUM=self.number_mp,TRANSIT=self.transits[index],RA=np.min(ra), DEC=np.min(dec)))
 
     def plot_all_transits(self):
-        """
-        Plots all observations for each transit in single figure.
+        """Plots all observations for each transit in single figure.
         """
         numTransits = len(self.transits)
         nFig = int(np.ceil(np.sqrt(numTransits)))
@@ -235,8 +232,7 @@ class Asteroid(object):
         fig.text(0.5, 0.92, '{NAME} ({NUM})\nAll Transits Observed By Gaia'.format(NAME=self.denomination, NUM=self.number_mp), ha='center')
 
     def query_mpc(self):
-        """
-        Queries MPC for all orbit data
+        """Queries MPC for all orbit data
 
         Returns:
             dict: All orbit data in form of dict
@@ -252,8 +248,7 @@ class Asteroid(object):
         return self.orbit_data
     
     def plot_orbits(self):
-        """
-        Plots sun and orbits of planets and asteroid
+        """Plots sun and orbits of planets and asteroid
         """
         fig,ax = plt.subplots(subplot_kw={'projection':'polar'}, figsize=(10, 10))
         planet_orbit(ax)
@@ -263,8 +258,7 @@ class Asteroid(object):
 
 
 def orbit(ax, orbit_params, color, olabel, lw=1, alp=1):
-    """
-    Plots simple orbit of object given semimajor axis and eccentricity
+    """Plots simple orbit of object given semimajor axis and eccentricity
     in polar coordinates.
 
     Args:
@@ -283,8 +277,7 @@ def orbit(ax, orbit_params, color, olabel, lw=1, alp=1):
     ax.legend()
 
 def planet_orbit(ax):
-    """
-    Plots sun and orbits of planets
+    """Plots sun and orbits of planets
 
     Args:
         ax (axes): Axes to plot onto
@@ -304,8 +297,7 @@ def planet_orbit(ax):
     orbit(ax, jupyter, 'pink', 'Jupyter')
 
 def plot_multiple_orbits(asteroids):
-    """
-    Plots orbit of multiple asteroids in array along with sun and planets
+    """Plots orbit of multiple asteroids in array along with sun and planets
 
     Args:
         asteroids (ndarray of Asteroid object): Array of asteroid objects

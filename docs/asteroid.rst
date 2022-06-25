@@ -1,9 +1,10 @@
 .. _asteroid:
 
-Asteroid Class
+Asteroid Module
 =====================
 
-Class representing asteroids from Gaia.
+Module to query data on asteroids from Gaia and plot transits and orbits
 
-.. automodule:: asteroid
+.. module:: asteroidal
+.. automodule:: asteroidal.asteroid
    :members:

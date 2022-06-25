@@ -1,9 +1,9 @@
-.. CodeAstroProject documentation master file, created by
+.. Asteroidal documentation master file, created by
    sphinx-quickstart on Thu Jun 23 10:35:55 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to CodeAstroProject's documentation!
+Welcome to Asteroidal's documentation!
 ============================================
 
 .. toctree::
