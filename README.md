@@ -3,10 +3,11 @@
 
 Package to plot transits and orbits of asteroids from Gaia Data Release 2.
 
-###Installation
+### Installation
 ```python
 pip install asteroidal
 ```
 
-###Tutorial
-`Asteroidal/asteroidal/tutorial.ipynb`
+### Tutorial
+
+Tutorial can be found here: `Asteroidal/asteroidal/tutorial.ipynb`
