@@ -40,12 +40,18 @@ class Asteroid(object):
     def __init__(self, number_mp=0, denomination='', source_id=0):
         if number_mp > 0:
             self.number_mp = number_mp
+            self.denomination = ''
+            self.source_id = source_id
             self.query_source('number_mp')
         elif denomination != '':
             self.denomination = denomination
+            self.number_mp = number_mp
+            self.source_id = source_id
             self.query_source('denomination')
         elif source_id != 0:
             self.source_id = source_id
+            self.denomination = ''
+            self.number_mp = number_mp
             self.query_source('source_id')
         else: 
             self.number_mp = 0
@@ -367,3 +373,4 @@ def plot_multiple_orbits(asteroids, ax=None):
             continue
         orbit(ax, asteroid.orbit_data, 'purple', asteroid.denomination + '({NUM})'.format(NUM=asteroid.number_mp), lw=1, alp=0.3)
     
+# %%
