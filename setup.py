@@ -4,7 +4,7 @@ setup(
 
     name='asteroidal',
 
-    version='1.1.0',
+    version='1.1.1',
 
     packages=find_packages()
 

@@ -257,11 +257,7 @@ specified by index in transits array</p>
 Adds observations attribute</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><dl class="simple">
-<dt>Table of results from query job including source_id, observation_id,</dt><dd><p>number_mp, epoch, ra, dec, x_gaia, y_gaia, z_gaia</p>
-</dd>
-</dl>
-</p>
+<dd class="field-odd"><p>Table of results from query job including source_id, observation_id, number_mp, epoch, ra, dec</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>Table</p>
@@ -325,7 +321,7 @@ does not intialize attributes.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asteroidal.asteroid.orbit">
-<span class="sig-prename descclassname"><span class="pre">asteroidal.asteroid.</span></span><span class="sig-name descname"><span class="pre">orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">olabel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.orbit" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asteroidal.asteroid.</span></span><span class="sig-name descname"><span class="pre">orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">olabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.orbit" title="Permalink to this definition"></a></dt>
 <dd><p>Plots simple orbit of object given semimajor axis and eccentricity
 in polar coordinates.</p>
 <dl class="field-list simple">
@@ -355,7 +351,7 @@ in polar coordinates.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asteroidal.asteroid.plot_multiple_orbits">
-<span class="sig-prename descclassname"><span class="pre">asteroidal.asteroid.</span></span><span class="sig-name descname"><span class="pre">plot_multiple_orbits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asteroids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.plot_multiple_orbits" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asteroidal.asteroid.</span></span><span class="sig-name descname"><span class="pre">plot_multiple_orbits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asteroids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#asteroidal.asteroid.plot_multiple_orbits" title="Permalink to this definition"></a></dt>
 <dd><p>Plots orbit of multiple asteroids in array along with sun and planets</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
